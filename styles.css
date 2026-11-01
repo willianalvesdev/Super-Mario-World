@@ -1,0 +1,69 @@
+:root {
+  color-scheme: dark;
+  --bg: #0a0a0a;
+  --accent: #373737;
+  --text: #ffffff;
+  --secondary-text: #969696;
+  --border: #202020;
+  --icon-bg: #282828;
+  --ibmmono: "IBM Plex Mono", monospace;
+  background: #000;
+  color: var(--text);
+  font-family: var(--ibmmono);
+}
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+[hidden] { display: none !important; }
+#game { width: 100%; height: 100%; height: 100dvh; background: #000; }
+#game canvas { image-rendering: pixelated; }
+#game:focus { outline: none; }
+#game :focus-visible, .error button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+
+/* The emulator keeps its own controls; only their appearance follows My-Portfolio. */
+#game.ejs_parent, #game button, #game select, #game input {
+  font-family: var(--ibmmono);
+}
+#game .ejs_menu_bar {
+  background: rgb(10 10 10 / 96%);
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  padding: 12px max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  color: var(--secondary-text);
+  backdrop-filter: blur(10px);
+}
+#game .ejs_menu_button { border-radius: 4px; transition: background-color .2s, color .2s; }
+#game .ejs_menu_button:hover, #game .ejs_button_style:hover, #game .ejs_settings_main_bar:hover {
+  background: var(--accent);
+  color: var(--text);
+}
+#game .ejs_settings_parent, #game .ejs_context_menu {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 12px 35px #0008;
+  color: var(--secondary-text);
+}
+#game .ejs_settings_parent::before { border-top-color: var(--border); }
+#game .ejs_settings_parent::after { border-top-color: var(--bg); }
+#game .ejs_settings_main_bar, #game .ejs_button_style { color: var(--secondary-text); padding: 9px 12px; }
+#game .ejs_settings_main_bar { padding-right: 28px; }
+#game .ejs_context_menu li:hover { background: var(--accent); box-shadow: none; }
+#game .ejs_popup_container { background: rgb(10 10 10 / 97%); }
+#game .ejs_popup_container h4 { color: var(--text); font-size: 20px; font-weight: 500; padding: 20px; }
+#game .ejs_button, #game .ejs_button_button {
+  font-family: var(--ibmmono);
+  background: var(--icon-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+}
+#game .ejs_button:hover, #game .ejs_button_button:hover { background: var(--accent); transform: none; }
+#game .ejs_loading_text { color: var(--secondary-text); font-size: 12px; }
+#game .ejs_message { font: 12px var(--ibmmono); color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; text-shadow: none; }
+#game ::-webkit-scrollbar { width: 5px; height: 5px; }
+#game ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+.error { position: fixed; inset: 0; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; background: var(--bg); text-align: center; }
+.error h1 { font-size: 18px; font-weight: 500; }
+.error p { max-width: 520px; color: var(--secondary-text); font-size: 13px; line-height: 1.8; }
+.error button { margin-top: 16px; padding: 12px 18px; font: inherit; font-size: 12px; color: var(--text); background: var(--icon-bg); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { #game * { transition: none !important; animation: none !important; } }

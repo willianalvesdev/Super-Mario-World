@@ -1,0 +1,9 @@
+EmulatorJS v4.2.3 (stable release, pinned)
+Source: https://github.com/EmulatorJS/EmulatorJS/tree/v4.2.3
+Assets: https://cdn.emulatorjs.org/4.2.3/data/
+Core: snes9x-legacy-wasm.data (single-threaded, WebGL 1)
+Core report buildStart: 2025-06-14T17:58:11+00:00
+EmulatorJS license: LICENSE (GNU GPL v3)
+Snes9x license: LICENSE-snes9x
+Snes9x source: https://github.com/libretro/snes9x
+Files downloaded without modifications.
