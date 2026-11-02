@@ -20,6 +20,7 @@ function boot(protocol = 'http:') {
     document: {
       body: { dataset: {}, appendChild: node => scripts.push(node) },
       querySelector: selector => nodes.get(selector),
+      querySelectorAll: () => [],
       createElement: tag => ({ tagName: tag }),
       addEventListener: (type, callback, capture) => listeners.set(type, { callback, capture }),
       removeEventListener(type, callback, capture) {
@@ -33,6 +34,7 @@ function boot(protocol = 'http:') {
     setTimeout(callback) { timers.set(++nextTimer, callback); return nextTimer; },
     clearTimeout: id => timers.delete(id),
   };
+  context.addEventListener = (type, callback) => listeners.set(type, { callback });
   context.window = context;
   vm.runInNewContext(source, context, { filename: 'app.js' });
   return { context, nodes, scripts, timers, listeners, reloads: () => reloads };
@@ -110,9 +112,22 @@ test('audio unlock captures game input and retries rejected permissions before r
   app.listeners.get('keydown').callback();
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(attempts, 1);
-  assert.equal(app.listeners.size, 2);
+  assert.equal(app.listeners.size, 4);
   app.listeners.get('pointerdown').callback();
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(attempts, 2);
-  assert.equal(app.listeners.size, 0);
+  assert.equal(app.listeners.size, 2);
+});
+
+test('native SRAM is flushed when the page is hidden or closed', () => {
+  const app = boot();
+  let saves = 0;
+  app.context.EJS_emulator = { started: true, gameManager: { saveSaveFiles() { saves++; } } };
+  app.context.document.visibilityState = 'hidden';
+  app.listeners.get('visibilitychange').callback();
+  app.listeners.get('pagehide').callback();
+  assert.equal(saves, 2);
+  app.context.EJS_emulator.started = false;
+  app.listeners.get('pagehide').callback();
+  assert.equal(saves, 2);
 });

@@ -10,7 +10,7 @@ const types = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.json': 'application/json',
   '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml',
-  '.png': 'image/png', '.ico': 'image/x-icon', '.wasm': 'application/wasm',
+  '.ttf': 'font/ttf', '.png': 'image/png', '.ico': 'image/x-icon', '.wasm': 'application/wasm',
 };
 
 export function createServer(root = directory) {
@@ -24,7 +24,7 @@ export function createServer(root = directory) {
     try {
       pathname = decodeURIComponent(request.url.split('?')[0]);
     } catch {
-      response.writeHead(400).end('Endereço inválido.');
+      response.writeHead(400).end('EndereÃ§o invÃ¡lido.');
       return;
     }
     const name = pathname === '/' ? 'index.html' : pathname.slice(1);
@@ -48,7 +48,7 @@ export function createServer(root = directory) {
     } catch (error) {
       const missing = ['ENOENT', 'ENOTDIR', 'EISDIR'].includes(error.code);
       if (!missing) console.error(error);
-      response.writeHead(missing ? 404 : 500).end(missing ? 'Arquivo não encontrado.' : 'Erro ao ler o arquivo.');
+      response.writeHead(missing ? 404 : 500).end(missing ? 'Arquivo nÃ£o encontrado.' : 'Erro ao ler o arquivo.');
     }
   });
 }
@@ -58,8 +58,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const address = 'http://127.0.0.1:8080';
   server.on('error', error => {
     console.error(error.code === 'EADDRINUSE'
-      ? `A porta 8080 já está em uso. Se o jogo já estiver aberto, acesse ${address}.`
-      : `Não foi possível iniciar o site: ${error.message}`);
+      ? `A porta 8080 jÃ¡ estÃ¡ em uso. Se o jogo jÃ¡ estiver aberto, acesse ${address}.`
+      : `NÃ£o foi possÃ­vel iniciar o site: ${error.message}`);
     process.exitCode = 1;
   });
   server.listen(8080, '127.0.0.1', () => {

@@ -1,3 +1,4 @@
+@font-face { font-family: "Super Mario World"; src: url("assets/fonts/super-mario-world.ttf") format("truetype"); font-display: swap; }
 :root {
   color-scheme: dark;
   --bg: #0a0a0a;
@@ -6,7 +7,7 @@
   --secondary-text: #969696;
   --border: #202020;
   --icon-bg: #282828;
-  --ibmmono: "IBM Plex Mono", monospace;
+  --ibmmono: "Super Mario World", monospace;
   background: #000;
   color: var(--text);
   font-family: var(--ibmmono);
@@ -67,3 +68,5 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 .error p { max-width: 520px; color: var(--secondary-text); font-size: 13px; line-height: 1.8; }
 .error button { margin-top: 16px; padding: 12px 18px; font: inherit; font-size: 12px; color: var(--text); background: var(--icon-bg); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { #game * { transition: none !important; animation: none !important; } }
+
+#game *, .error * { font-family: "Super Mario World", monospace !important; }
